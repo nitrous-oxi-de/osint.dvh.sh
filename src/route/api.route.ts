@@ -15,7 +15,7 @@ import pkg                                               from "@package";
 */
 async function apiRoute(fastify: FastifyInstance) {
 
-    fastify.get("/version", async (req: FastifyRequest, res: FastifyReply) => { res.send({ version: pkg.version, environment: process.env.API_ENVIRONMENT }); });
+    fastify.get("/api/version", async (req: FastifyRequest, res: FastifyReply) => { res.send({ version: pkg.version, environment: process.env.API_ENVIRONMENT }); });
 
 }
 
