@@ -4,7 +4,9 @@
  * @updated Thu Aug 9 2024
  * @description Main entry point for the application
  */
-import "dotenv/config";
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 import { APIEnvironment }           from "@enum/eAPIEnvironment";
 import pkg                          from "@package";
@@ -21,8 +23,8 @@ import cors                         from "@fastify/cors";
 //
 /////////////////////////////////////////////////////////////
 
-const PORT : number            = process.env.PORT ? parseInt(process.env.PORT) : 3008;
-const HOST : String            = `localhost`;
+const PORT : number            = process.env.PORT ? parseInt(process.env.PORT) : 8080;
+const HOST : String            = `0.0.0.0`;
 const app  : FastifyInstance   = fastify({ logger: false });
 
 /////////////////////////////////////////////////////////////
@@ -81,7 +83,7 @@ async function main(fastify: FastifyInstance) {
     await osintRoute(fastify);
     await apiRoute(fastify);
 
-    fastify.listen({port: PORT}, (err, address) => {
+    fastify.listen({port: PORT, host: HOST}, (err, address) => {
 
         if (err) { console.error(err); process.exit(1); }
     });
