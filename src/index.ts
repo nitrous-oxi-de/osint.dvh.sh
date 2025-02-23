@@ -24,7 +24,7 @@ import cors from "@fastify/cors";
 /////////////////////////////////////////////////////////////
 
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 8080;
-const HOST: string = '0.0.0.0'; // Changed from String to string
+const HOST: string = '0.0.0.0'; 
 const app: FastifyInstance = fastify({ logger: false });
 
 /////////////////////////////////////////////////////////////
@@ -84,10 +84,9 @@ async function main(fastify: FastifyInstance): Promise<void> {
     await osintRoute(fastify);
     await apiRoute(fastify);
 
-    await fastify.listen({ 
-        port: PORT,
-        host: HOST 
-    });
+      fastify.listen({ port: PORT, host: '0.0.0.0' }, (err, address) => {
+    if (err) { console.error(err); process.exit(1); }
+  });
 }
 
 main(app)
