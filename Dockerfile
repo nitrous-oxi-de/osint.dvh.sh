@@ -9,8 +9,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies (using npm ci for clean install)
-RUN npm ci --fetch-timeout=600000 --no-audit
+# Install dependencies (using regular npm install since package-lock.json might not exist yet)
+RUN npm install --fetch-timeout=600000 --no-audit
 
 # Copy source code
 COPY . .
@@ -35,7 +35,7 @@ WORKDIR /app
 
 # Copy package files and install only production dependencies
 COPY --from=builder /app/package*.json ./
-RUN npm ci --only=production --fetch-timeout=600000 --no-audit
+RUN npm install --omit=dev --fetch-timeout=600000 --no-audit
 
 # Copy built application
 COPY --from=builder /app/dist ./dist
