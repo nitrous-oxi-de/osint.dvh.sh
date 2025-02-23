@@ -101,10 +101,6 @@ async function main(fastify: FastifyInstance): Promise<void> {
   await osintRoute(fastify);
   await apiRoute(fastify);
 
-  fastify.get("/", async (req: FastifyRequest, res: FastifyReply) => {
-    return { status: "ok" };
-  });
-
   await fastify.listen({ port: PORT, host: HOST }, (err, address) => {
     if (err) {
       console.error(err);
