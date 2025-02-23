@@ -8,14 +8,14 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-import { APIEnvironment }           from "@enum/eAPIEnvironment";
-import pkg                          from "@package";
+import { APIEnvironment } from "@enum/eAPIEnvironment";
+import pkg from "@package";
 
-import fastify, {FastifyInstance }  from "fastify";
-import rateLimit                    from "@fastify/rate-limit";
-import compress                     from "@fastify/compress";
-import helmet                       from "@fastify/helmet";
-import cors                         from "@fastify/cors";
+import fastify, { FastifyInstance } from "fastify";
+import rateLimit from "@fastify/rate-limit";
+import compress from "@fastify/compress";
+import helmet from "@fastify/helmet";
+import cors from "@fastify/cors";
 
 /////////////////////////////////////////////////////////////
 //
@@ -23,9 +23,9 @@ import cors                         from "@fastify/cors";
 //
 /////////////////////////////////////////////////////////////
 
-const PORT : number            = process.env.PORT ? parseInt(process.env.PORT) : 8080;
-const HOST : String            = `0.0.0.0`;
-const app  : FastifyInstance   = fastify({ logger: false });
+const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 8080;
+const HOST: string = '0.0.0.0'; // Changed from String to string
+const app: FastifyInstance = fastify({ logger: false });
 
 /////////////////////////////////////////////////////////////
 //
@@ -33,8 +33,8 @@ const app  : FastifyInstance   = fastify({ logger: false });
 //
 /////////////////////////////////////////////////////////////
 
-import osintRoute     from '@route/osint.route';
-import apiRoute       from '@route/api.route';
+import osintRoute from '@route/osint.route';
+import apiRoute from '@route/api.route';
 
 /////////////////////////////////////////////////////////////
 //
@@ -42,33 +42,34 @@ import apiRoute       from '@route/api.route';
 //
 /////////////////////////////////////////////////////////////
 
-const API_ENVIRONMENT : string = process.env.API_ENVIRONMENT as string;
+const API_ENVIRONMENT: string = process.env.API_ENVIRONMENT as string;
 
 // requests per minute
-const handleRateLimit = (env: string) => {
+const handleRateLimit = (env: string): number => {
     switch (env) {
-        case APIEnvironment.Development : return 999;
-        case APIEnvironment.Production  : return 60;
-        case APIEnvironment.Sandbox     : return 100;
-        default                         : return 0;
+        case APIEnvironment.Development: return 999;
+        case APIEnvironment.Production: return 60;
+        case APIEnvironment.Sandbox: return 100;
+        default: return 0;
     }
-}
+};
 
 // make sure essential environment variables are set
-const environmentCheck = () => {
+const environmentCheck = (): void => {
     // no environment defined
-    if (!API_ENVIRONMENT)
-        { throw new Error("API_ENVIRONMENT is not defined"); }
+    if (!API_ENVIRONMENT) {
+        throw new Error("API_ENVIRONMENT is not defined");
+    }
 
     // invalid environment defined
-    if (!Object.values(APIEnvironment).includes(API_ENVIRONMENT as APIEnvironment))
-        { throw new Error("API_ENVIRONMENT is not a valid environment"); }
-}
+    if (!Object.values(APIEnvironment).includes(API_ENVIRONMENT as APIEnvironment)) {
+        throw new Error("API_ENVIRONMENT is not a valid environment");
+    }
+};
 
 /////////////////////////////////////////////////////////////
 
-async function main(fastify: FastifyInstance) {
-
+async function main(fastify: FastifyInstance): Promise<void> {
     environmentCheck();
 
     await fastify.register(rateLimit, {
@@ -83,12 +84,19 @@ async function main(fastify: FastifyInstance) {
     await osintRoute(fastify);
     await apiRoute(fastify);
 
-    fastify.listen({port: PORT, host: HOST}, (err, address) => {
-
-        if (err) { console.error(err); process.exit(1); }
+    await fastify.listen({ 
+        port: PORT,
+        host: HOST 
     });
 }
 
-main(app).then(r => { console.log(`[${new Date().toLocaleString()}] [${pkg.version}/${API_ENVIRONMENT}] | Server started and listening at [${HOST}:${PORT}]`); });
+main(app)
+    .then(() => {
+        console.log(`[${new Date().toLocaleString()}] [${pkg.version}/${API_ENVIRONMENT}] | Server started and listening at [${HOST}:${PORT}]`);
+    })
+    .catch((error) => {
+        console.error('Failed to start server:', error);
+        process.exit(1);
+    });
 
 // Path: src/index.ts
