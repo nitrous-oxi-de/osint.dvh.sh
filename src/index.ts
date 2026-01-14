@@ -88,8 +88,6 @@ async function main(fastify: FastifyInstance): Promise<void> {
   fastify.register(helmet);
   fastify.register(cors, {
     origin: [
-      'https://osint.nitrous-oxi.de',
-      'https://nitrous-oxi.de',
       'https://osint.dvh.sh',
       'https://nitrous.dvh.sh'
     ],
