@@ -1,8 +1,8 @@
-# Nitrous Oxide OSINT API
+# Nitrous OSINT API
 
-Welcome to the **Nitrous Oxide OSINT API**—a Fastify-based REST API designed for comprehensive Open Source Intelligence (OSINT) reconnaissance. This API offers a modular framework for conducting basic reconnaissance across various categories such as usernames, domains, emails, phone numbers, and IP addresses.
+Welcome to **Nitrous OSINT API**. A Fastify-based REST API designed for comprehensive Open Source Intelligence (OSINT) reconnaissance. This API offers a modular framework for conducting basic reconnaissance across various categories such as usernames, domains, emails, phone numbers, and IP addresses.
 
-![GitHub License](https://img.shields.io/github/license/nitrous-oxi-de/api.nitrous-oxi.de)
+![GitHub License](https://img.shields.io/github/license/nitrous-oxi-de/osint.dvh.sh)
 
 ## Table of Contents
 
@@ -31,30 +31,30 @@ Welcome to the **Nitrous Oxide OSINT API**—a Fastify-based REST API designed f
 
 The API provides endpoints for different categories of reconnaissance:
 
-- [`/username`](https://osint.nitrous-oxi.de/username)
-- [`/domain`](https://osint.nitrous-oxi.de/domain)
-- [`/email`](https://osint.nitrous-oxi.de/email)
-- [`/phone`](https://osint.nitrous-oxi.de/phone)
-- [`/ip`](https://osint.nitrous-oxi.de/ip)
+- [`/username`](https://osint.dvh.sh/username)
+- [`/domain`](https://osint.dvh.sh/domain)
+- [`/email`](https://osint.dvh.sh/email)
+- [`/phone`](https://osint.dvh.sh/phone)
+- [`/ip`](https://osint.dvh.sh/ip)
 
 ### Module Indexing
 
 All available modules can be indexed using the following endpoints:
 
-- Index All Modules - `https://osint.nitrous-oxi.de/`
-- Index by Category - `https://osint.nitrous-oxi.de/<category>/`
+- Index All Modules - `https://osint.dvh.sh/`
+- Index by Category - `https://osint.dvh.sh/<category>/`
 
 ### Individual Module Queries
 
 You can query a specific module using:
 
-- `https://osint.nitrous-oxi.de/<category>/<module>?query=`
+- `https://osint.dvh.sh/<category>/<module>?query=`
 
 ### Categorized Queries
 
 To query all modules within a specific category, use the following:
 
-- `https://osint.nitrous-oxi.de/<category>?query=`
+- `https://osint.dvh.sh/<category>?query=`
 
 ### Response Schema
 
@@ -90,10 +90,10 @@ Follow these steps to set up the project locally:
 npm install typescript -G
 
 # Clone the repository
-git clone https://github.com/nitrous-oxi-de/osint.nitrous-oxi.de.git
+git clone https://github.com/nitrous-oxi-de/osint.dvh.sh.git
 
 # Navigate into the project directory
-cd osint.nitrous-oxi.de
+cd osint.dvh.sh
 
 # Setup the environment variables
 cp .env.example .env
