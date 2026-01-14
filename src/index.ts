@@ -89,7 +89,8 @@ async function main(fastify: FastifyInstance): Promise<void> {
   fastify.register(cors, {
     origin: [
       'https://osint.dvh.sh',
-      'https://nitrous.dvh.sh'
+      'https://nitrous.dvh.sh',
+      'http://localhost:3000'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
